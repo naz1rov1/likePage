@@ -1,31 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import img from "../assets/news.webp";
 
 const NewsCard = ({ item, onRemove, onSave }) => {
+  const [liked, setLiked] = useState(false);
+
+  const handleLike = (e) => {
+    e.stopPropagation();
+    setLiked(!liked);
+    if (onSave) onSave();
+  };
+
   return (
     <div className="news-card">
-      <img src={item.imageUrl} className="news-img" alt={item.title} />
+      <img
+        src={img}
+        className="news-img"
+        alt={item.title}
+      />
 
       <div className="news-content">
         <div className="title-row">
           <h3>{item.title}</h3>
 
-       
           {onRemove && (
             <button className="remove-btn" onClick={onRemove}>
               X
             </button>
           )}
 
-          {onSave && (
-            <button className="like-btn" onClick={onSave}>
-              <i class="fa-regular fa-heart"></i>
-            </button>
-          )}
+          <button
+            className={`like-btn ${liked ? "active" : ""}`}
+            onClick={handleLike}
+          >
+            <i className="fa-solid fa-heart"></i>
+          </button>
         </div>
 
-        <p className="news-date">{item.date}</p>
-        <p className="news-desc">{item.description}</p>
+        <div className="news-all">
+          <p className="news-date">{item.tags[0]}</p>
+         
+        </div>
+        <p className="news-desc">
+          {item.body.slice(0, 100)}
+        </p>
 
         <Link to={`/news/${item.id}`} className="read-more">
           Read more →

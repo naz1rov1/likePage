@@ -5,7 +5,9 @@ const Footer = () => {
   const { t } = useTranslation();
   return (
     <footer className="footer">
-      <p>© {new Date().getFullYear()} NewsPortal. All rights reserved.</p>
+      <p>
+        © {new Date().getFullYear()} {t("copyright")}
+      </p>
     </footer>
   );
 };

@@ -1,12 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import i18n from "../i18n";
 const Header = () => {
-    const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
-    const handleChangeLanguage = (e) => {
-      i18n.changeLanguage(e.target.value);
-    };
   return (
     <header className="header">
       <h2 className="logo">News</h2>
@@ -20,7 +18,10 @@ const Header = () => {
         <Link to="/">{t("news")}</Link>
         <Link to="/saved">{t("saved")}</Link>
       </nav>
-      <select onChange={handleChangeLanguage} value={i18n.language}>
+      <select
+        value={i18n.language}
+        onChange={(e) => i18n.changeLanguage(e.target.value)}
+      >
         <option value="uz">O‘zbekcha</option>
         <option value="en">English</option>
         <option value="ru">Русский</option>
